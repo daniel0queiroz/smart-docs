@@ -25,6 +25,8 @@
 
 @layer theme {
   :root, :host {
+    --spacing: .25rem;
+    --animate-spin: spin 1s linear infinite;
     --default-font-family: var(--font-geist-sans);
     --default-mono-font-family: var(--font-geist-mono);
   }
@@ -292,7 +294,18 @@
   }
 }
 
-@layer components, utilities;
+@layer components;
+
+@layer utilities {
+  .size-4 {
+    width: calc(var(--spacing) * 4);
+    height: calc(var(--spacing) * 4);
+  }
+
+  .animate-spin {
+    animation: var(--animate-spin);
+  }
+}
 
 @property --tw-animation-delay {
   syntax: "*";
@@ -533,6 +546,12 @@
     --sidebar-accent-foreground: lab(98.1434% -.369519 -1.05966);
     --sidebar-border: lab(100% 0 0 / .1);
     --sidebar-ring: lab(47.7841% -.393182 -10.0268);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
