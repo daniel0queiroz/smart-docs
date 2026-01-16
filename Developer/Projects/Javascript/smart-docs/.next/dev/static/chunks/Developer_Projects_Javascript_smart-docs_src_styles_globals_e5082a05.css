@@ -1,18 +1,32 @@
 /* [project]/Developer/Projects/Javascript/smart-docs/src/styles/globals.css [app-client] (css) */
+@layer properties {
+  @supports (((-webkit-hyphens: none)) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color: rgb(from red r g b)))) {
+    *, :before, :after, ::backdrop {
+      --tw-animation-delay: 0s;
+      --tw-animation-direction: normal;
+      --tw-animation-duration: initial;
+      --tw-animation-fill-mode: none;
+      --tw-animation-iteration-count: 1;
+      --tw-enter-blur: 0;
+      --tw-enter-opacity: 1;
+      --tw-enter-rotate: 0;
+      --tw-enter-scale: 1;
+      --tw-enter-translate-x: 0;
+      --tw-enter-translate-y: 0;
+      --tw-exit-blur: 0;
+      --tw-exit-opacity: 1;
+      --tw-exit-rotate: 0;
+      --tw-exit-scale: 1;
+      --tw-exit-translate-x: 0;
+      --tw-exit-translate-y: 0;
+    }
+  }
+}
+
 @layer theme {
   :root, :host {
-    --color-red-400: #ff6568;
-    --color-blue-300: #90c5ff;
-    --spacing: .25rem;
     --default-font-family: var(--font-geist-sans);
     --default-mono-font-family: var(--font-geist-mono);
-  }
-
-  @supports (color: lab(0% 0 0)) {
-    :root, :host {
-      --color-red-400: lab(63.7053% 60.745 31.3109);
-      --color-blue-300: lab(77.5052% -6.4629 -36.42);
-    }
   }
 }
 
@@ -260,40 +274,266 @@
   [hidden]:where(:not([hidden="until-found"])) {
     display: none !important;
   }
+
+  * {
+    border-color: var(--border);
+    outline-color: var(--ring);
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    * {
+      outline-color: color-mix(in oklab, var(--ring) 50%, transparent);
+    }
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
 }
 
-@layer components;
+@layer components, utilities;
 
-@layer utilities {
-  .h-20 {
-    height: calc(var(--spacing) * 20);
-  }
+@property --tw-animation-delay {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0s;
+}
 
-  .bg-red-400 {
-    background-color: var(--color-red-400);
-  }
+@property --tw-animation-direction {
+  syntax: "*";
+  inherits: false;
+  initial-value: normal;
+}
 
-  .text-blue-300 {
-    color: var(--color-blue-300);
-  }
+@property --tw-animation-duration {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-animation-fill-mode {
+  syntax: "*";
+  inherits: false;
+  initial-value: none;
+}
+
+@property --tw-animation-iteration-count {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+
+@property --tw-enter-blur {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --tw-enter-opacity {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+
+@property --tw-enter-rotate {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --tw-enter-scale {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+
+@property --tw-enter-translate-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --tw-enter-translate-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --tw-exit-blur {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --tw-exit-opacity {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+
+@property --tw-exit-rotate {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --tw-exit-scale {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+
+@property --tw-exit-translate-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --tw-exit-translate-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
 }
 
 :root {
+  --radius: .625rem;
   --background: #fff;
-  --foreground: #171717;
+  --foreground: #020618;
+  --card: #fff;
+  --card-foreground: #020618;
+  --popover: #fff;
+  --popover-foreground: #020618;
+  --primary: #0f172b;
+  --primary-foreground: #f8fafc;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172b;
+  --muted: #f1f5f9;
+  --muted-foreground: #62748e;
+  --accent: #f1f5f9;
+  --accent-foreground: #0f172b;
+  --destructive: #e40014;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #90a1b9;
+  --chart-1: #f05100;
+  --chart-2: #009588;
+  --chart-3: #104e64;
+  --chart-4: #fcbb00;
+  --chart-5: #f99c00;
+  --sidebar: #f8fafc;
+  --sidebar-foreground: #020618;
+  --sidebar-primary: #0f172b;
+  --sidebar-primary-foreground: #f8fafc;
+  --sidebar-accent: #f1f5f9;
+  --sidebar-accent-foreground: #0f172b;
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: #90a1b9;
 }
 
-@media (prefers-color-scheme: dark) {
+@supports (color: lab(0% 0 0)) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: lab(100% 0 0);
+    --foreground: lab(1.76974% 1.32743 -9.28855);
+    --card: lab(100% 0 0);
+    --card-foreground: lab(1.76974% 1.32743 -9.28855);
+    --popover: lab(100% 0 0);
+    --popover-foreground: lab(1.76974% 1.32743 -9.28855);
+    --primary: lab(7.78673% 1.82345 -15.0537);
+    --primary-foreground: lab(98.1434% -.369519 -1.05966);
+    --secondary: lab(96.286% -.852436 -2.46847);
+    --secondary-foreground: lab(7.78673% 1.82345 -15.0537);
+    --muted: lab(96.286% -.852436 -2.46847);
+    --muted-foreground: lab(48.0876% -2.03595 -16.5814);
+    --accent: lab(96.286% -.852436 -2.46847);
+    --accent-foreground: lab(7.78673% 1.82345 -15.0537);
+    --destructive: lab(48.4493% 77.4328 61.5452);
+    --border: lab(91.7353% -.998765 -4.76968);
+    --input: lab(91.7353% -.998765 -4.76968);
+    --ring: lab(65.5349% -2.25151 -14.5072);
+    --chart-1: lab(57.1026% 64.2584 89.8886);
+    --chart-2: lab(55.0223% -41.0774 -3.90277);
+    --chart-3: lab(30.372% -13.1853 -18.7887);
+    --chart-4: lab(80.1641% 16.6016 99.2089);
+    --chart-5: lab(72.7183% 31.8672 97.9407);
+    --sidebar: lab(98.1434% -.369519 -1.05966);
+    --sidebar-foreground: lab(1.76974% 1.32743 -9.28855);
+    --sidebar-primary: lab(7.78673% 1.82345 -15.0537);
+    --sidebar-primary-foreground: lab(98.1434% -.369519 -1.05966);
+    --sidebar-accent: lab(96.286% -.852436 -2.46847);
+    --sidebar-accent-foreground: lab(7.78673% 1.82345 -15.0537);
+    --sidebar-border: lab(91.7353% -.998765 -4.76968);
+    --sidebar-ring: lab(65.5349% -2.25151 -14.5072);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.dark {
+  --background: #020618;
+  --foreground: #f8fafc;
+  --card: #0f172b;
+  --card-foreground: #f8fafc;
+  --popover: #0f172b;
+  --popover-foreground: #f8fafc;
+  --primary: #e2e8f0;
+  --primary-foreground: #0f172b;
+  --secondary: #1d293d;
+  --secondary-foreground: #f8fafc;
+  --muted: #1d293d;
+  --muted-foreground: #90a1b9;
+  --accent: #1d293d;
+  --accent-foreground: #f8fafc;
+  --destructive: #ff6568;
+  --border: #ffffff1a;
+  --input: #ffffff26;
+  --ring: #6a7282;
+  --chart-1: #1447e6;
+  --chart-2: #00bb7f;
+  --chart-3: #f99c00;
+  --chart-4: #ac4bff;
+  --chart-5: #ff2357;
+  --sidebar: #0f172b;
+  --sidebar-foreground: #f8fafc;
+  --sidebar-primary: #1447e6;
+  --sidebar-primary-foreground: #f8fafc;
+  --sidebar-accent: #1d293d;
+  --sidebar-accent-foreground: #f8fafc;
+  --sidebar-border: #ffffff1a;
+  --sidebar-ring: #6a7282;
+}
+
+@supports (color: lab(0% 0 0)) {
+  .dark {
+    --background: lab(1.76974% 1.32743 -9.28855);
+    --foreground: lab(98.1434% -.369519 -1.05966);
+    --card: lab(7.78673% 1.82345 -15.0537);
+    --card-foreground: lab(98.1434% -.369519 -1.05966);
+    --popover: lab(7.78673% 1.82345 -15.0537);
+    --popover-foreground: lab(98.1434% -.369519 -1.05966);
+    --primary: lab(91.7353% -.998765 -4.76968);
+    --primary-foreground: lab(7.78673% 1.82345 -15.0537);
+    --secondary: lab(16.132% -.318035 -14.6672);
+    --secondary-foreground: lab(98.1434% -.369519 -1.05966);
+    --muted: lab(16.132% -.318035 -14.6672);
+    --muted-foreground: lab(65.5349% -2.25151 -14.5072);
+    --accent: lab(16.132% -.318035 -14.6672);
+    --accent-foreground: lab(98.1434% -.369519 -1.05966);
+    --destructive: lab(63.7053% 60.745 31.3109);
+    --border: lab(100% 0 0 / .1);
+    --input: lab(100% 0 0 / .15);
+    --ring: lab(47.7841% -.393182 -10.0268);
+    --chart-1: lab(36.9089% 35.0961 -85.6872);
+    --chart-2: lab(66.9756% -58.27 19.5419);
+    --chart-3: lab(72.7183% 31.8672 97.9407);
+    --chart-4: lab(52.0183% 66.11 -78.2316);
+    --chart-5: lab(56.101% 79.4328 31.4532);
+    --sidebar: lab(7.78673% 1.82345 -15.0537);
+    --sidebar-foreground: lab(98.1434% -.369519 -1.05966);
+    --sidebar-primary: lab(36.9089% 35.0961 -85.6872);
+    --sidebar-primary-foreground: lab(98.1434% -.369519 -1.05966);
+    --sidebar-accent: lab(16.132% -.318035 -14.6672);
+    --sidebar-accent-foreground: lab(98.1434% -.369519 -1.05966);
+    --sidebar-border: lab(100% 0 0 / .1);
+    --sidebar-ring: lab(47.7841% -.393182 -10.0268);
+  }
 }
 
 /*# sourceMappingURL=Developer_Projects_Javascript_smart-docs_src_styles_globals_e5082a05.css.map*/
