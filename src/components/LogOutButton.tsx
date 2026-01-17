@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from 'react'
-import { Button } from './button'
+import { Button } from './ui/button'
 import { Loader2 } from 'lucide-react'
 import { toast } from "sonner"
 import { useRouter } from 'next/navigation'

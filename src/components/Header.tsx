@@ -1,7 +1,7 @@
 import { shadow } from "@/styles/utils"
 import Image from "next/image"
 import Link from "next/link"
-import { Button } from "./button";
+import { Button } from "./ui/button";
 import DarkModeToggle from "./DarkModeToggle";
 import LogOutButton from "./LogOutButton";
 
