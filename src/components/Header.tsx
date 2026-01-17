@@ -4,9 +4,10 @@ import Link from "next/link"
 import { Button } from "./ui/button";
 import DarkModeToggle from "./DarkModeToggle";
 import LogOutButton from "./LogOutButton";
+import { getUser } from "@/auth/server";
 
-function Header() {
-const user = null;
+async function Header() {
+const user = await getUser();
 
   return (
     <header className="relative flex h-24 w-full items-center justify-between bg-popover px-3 sm:px-8"
@@ -23,10 +24,10 @@ const user = null;
             <h1 className="flex flex-col pb-1 text-2xl font-semibold leading-6">Smart <span>Docs</span></h1>
         </Link>
         <div className="flex gap-4">
-            {/* {user ? ( */}
+             {user ? ( 
                 <LogOutButton />
-            {/* ) :  */}
-            {/* (
+               )  : (  
+             
                 <>
                 <Button asChild className="hidden sm:block">
                     <Link href="/sign-up" >Cadastre-se</Link>
@@ -35,7 +36,7 @@ const user = null;
                     <Link href="/login">Login</Link>
                 </Button>
                 </>
-            )} */}
+            )} 
             <DarkModeToggle />
         </div>
     </header>
