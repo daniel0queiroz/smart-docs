@@ -47,6 +47,8 @@
 
 @layer theme {
   :root, :host {
+    --color-emerald-600: #009767;
+    --color-emerald-700: #007956;
     --color-white: #fff;
     --spacing: .25rem;
     --text-xs: .75rem;
@@ -63,6 +65,13 @@
     --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
     --default-font-family: var(--font-geist-sans);
     --default-mono-font-family: var(--font-geist-mono);
+  }
+
+  @supports (color: lab(0% 0 0)) {
+    :root, :host {
+      --color-emerald-600: lab(55.0481% -49.9246 15.93);
+      --color-emerald-700: lab(44.4871% -41.0396 11.0361);
+    }
   }
 }
 
@@ -449,6 +458,10 @@
     min-height: 100vh;
   }
 
+  .w-24 {
+    width: calc(var(--spacing) * 24);
+  }
+
   .w-\[1\.2rem\] {
     width: 1.2rem;
   }
@@ -564,6 +577,10 @@
     border-width: 1px;
   }
 
+  .border-emerald-700 {
+    border-color: var(--color-emerald-700);
+  }
+
   .bg-background {
     background-color: var(--background);
   }
@@ -574,6 +591,10 @@
 
   .bg-destructive {
     background-color: var(--destructive);
+  }
+
+  .bg-emerald-600 {
+    background-color: var(--color-emerald-600);
   }
 
   .bg-popover {

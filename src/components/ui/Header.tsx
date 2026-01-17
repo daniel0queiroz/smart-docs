@@ -3,6 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "./button";
 import DarkModeToggle from "./DarkModeToggle";
+import LogOutButton from "./LogOutButton";
 
 function Header() {
 const user = null;
@@ -22,10 +23,10 @@ const user = null;
             <h1 className="flex flex-col pb-1 text-2xl font-semibold leading-6">Smart <span>Docs</span></h1>
         </Link>
         <div className="flex gap-4">
-            {user ? (
-                "Logout"
-            ) : 
-            (
+            {/* {user ? ( */}
+                <LogOutButton />
+            {/* ) :  */}
+            {/* (
                 <>
                 <Button asChild className="hidden sm:block">
                     <Link href="/sign-up" >Cadastre-se</Link>
@@ -34,7 +35,7 @@ const user = null;
                     <Link href="/login">Login</Link>
                 </Button>
                 </>
-            )}
+            )} */}
             <DarkModeToggle />
         </div>
     </header>
