@@ -7,7 +7,7 @@ import { prisma } from "@/prisma/prisma";
 export const createNoteAction = async (noteId: string) => {
     try {
         const user = await getUser();
-        if(!user) throw new Error("Você deve estar logado para criar uma nota.")
+        if(!user) throw new Error("Você deve estar logado para criar uma anotação.")
 
         await prisma.note.create({
             data: { 
@@ -26,11 +26,26 @@ export const createNoteAction = async (noteId: string) => {
 export const updateNoteAction = async (noteId: string, text: string) => {
     try {
         const user = await getUser();
-        if(!user) throw new Error("Você deve estar logado para atualizar uma nota.")
+        if(!user) throw new Error("Você deve estar logado para atualizar uma anotação.")
 
         await prisma.note.update({
             where: { id: noteId },
             data: { text },
+        })
+
+        return {errorMessage: null}
+    } catch (error) {
+        return handleError(error)
+    }
+}
+
+export const deleteNoteAction = async (noteId: string) => {
+    try {
+        const user = await getUser();
+        if(!user) throw new Error("Você deve estar logado para deletar uma anotação.")
+
+        await prisma.note.delete({
+            where: { id: noteId, authorId: user.id }
         })
 
         return {errorMessage: null}

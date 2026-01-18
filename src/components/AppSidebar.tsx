@@ -11,7 +11,7 @@ import Link from "next/link";
 import SidebarGroupContent from "./SidebarGroupContent";
 
 async function AppSidebar() {
-const user = getUser();
+const user = await getUser();
 
 let notes: Note[] = []
 
