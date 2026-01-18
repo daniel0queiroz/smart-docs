@@ -24,7 +24,7 @@ function NoteTextInput({noteId, startingNoteText}: Props) {
         }
     }, [startingNoteText, noteIdParam, noteId, setNoteText])
 
-    const handleUpdateNote = (e: ChangeEvent<HTMLAreaElement>) => {
+    const handleUpdateNote = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const text = e.target.value;
 
         setNoteText(text)
