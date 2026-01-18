@@ -72,14 +72,14 @@ export const askAIAboutNotesAction = async (newQuestions: string[], responses: s
 
         const formattedNotes = notes
         .map(
-            (note) => 
+            (note: { text: string; createdAt: Date; updatedAt: Date }) => 
             `
             Texto: ${note.text},
             Criado em: ${note.createdAt}
             Última atualização: ${note.updatedAt}
             `.trim(),
-            )
-            .join("\n");
+        )
+        .join("\n");
 
             const messages: ChatCompletionMessageParam[] = [
                 {
