@@ -6,6 +6,7 @@ import { debounceTimeout } from "@/lib/constants";
 import useNote from "@/hooks/useNote";
 import { updateNoteAction } from "@/actions/notes";
 import { useNotesSWR } from "@/hooks/useNotesSWR";
+import type { Note } from "@prisma/client";
 
 type Props = {
     noteId: string;
@@ -20,7 +21,7 @@ function NoteTextInput({ noteId, startingNoteText }: Props) {
     const { notes } = useNotesSWR();
 
     useEffect(() => {
-        const currentNote = notes.find((n) => n.id === noteId);
+        const currentNote = notes.find((n: Note) => n.id === noteId);
         setNoteText(currentNote ? currentNote.text : "");
     }, [noteId, notes, setNoteText]);
 
