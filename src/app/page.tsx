@@ -10,7 +10,7 @@ type Props = {
 }
 
 async function HomePage({searchParams}: Props) {
-  const noteIdParam = (await searchParams).noteId
+  const noteIdParam = (await searchParams).noteId;
   const user = await getUser();
 
   // If user is logged out, send back to login to show the auth form
@@ -18,20 +18,35 @@ async function HomePage({searchParams}: Props) {
     redirect("/login");
   }
 
-  const noteId = Array.isArray(noteIdParam) ? noteIdParam![0] : noteIdParam || "";
+  let noteId = Array.isArray(noteIdParam) ? noteIdParam![0] : noteIdParam || "";
+  let note = null;
 
-  const note = await prisma.note.findUnique({
-    where: { id: noteId, authorId: user.id},
-  });
+  if (noteId) {
+    note = await prisma.note.findUnique({
+      where: { id: noteId, authorId: user.id },
+    });
+  }
+
+  // Se não houver noteId ou a nota não existir, buscar a primeira nota do usuário
+  if (!noteId || !note) {
+    const firstNote = await prisma.note.findFirst({
+      where: { authorId: user.id },
+      orderBy: { updatedAt: "desc" },
+    });
+    if (firstNote) {
+      redirect(`/?noteId=${firstNote.id}`);
+    }
+    // Se não houver nenhuma nota, noteId permanece vazio
+  }
 
   return (
-  <div className="flex h-full flex-col items-center gap-4">
-    <div className="flex w-full max-w-4xl justify-end gap-2">
-      <AskAIButton user={user}/>
-      <NewNoteButton user={user} />
+    <div className="flex h-full flex-col items-center gap-4">
+      <div className="flex w-full max-w-4xl justify-end gap-2">
+        <AskAIButton user={user}/>
+        <NewNoteButton user={user} />
+      </div>
+      <NoteTextInput noteId={noteId} startingNoteText={note?.text || ""} />
     </div>
-    <NoteTextInput noteId={noteId} startingNoteText={note?.text || ""} />
-  </div>
   );
 }
 
