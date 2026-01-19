@@ -30,12 +30,16 @@ export const updateNoteAction = async (noteId: string, text: string) => {
         const user = await getUser();
         if(!user) throw new Error("Você deve estar logado para atualizar uma anotação")
 
-        await prisma.note.update({
-            where: { id: noteId },
-            data: { text },
+        const note = await prisma.note.create({
+            data: { 
+                id: noteId,
+                authorId: user.id,
+                text: "",
+                updatedAt: new Date(),
+             },
         })
 
-        return {errorMessage: null}
+        return {errorMessage: null, noteId: note.id}
     } catch (error) {
         return handleError(error)
     }
