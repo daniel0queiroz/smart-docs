@@ -1,45 +1,48 @@
-"use client"
-
+"use client";
 import { useSearchParams } from "next/navigation";
 import { Textarea } from "./ui/textarea";
 import { ChangeEvent, useEffect } from "react";
 import { debounceTimeout } from "@/lib/constants";
 import useNote from "@/hooks/useNote";
 import { updateNoteAction } from "@/actions/notes";
+import { useNotesSWR } from "@/hooks/useNotesSWR";
 
 type Props = {
     noteId: string;
-    startingNoteText: string
+    startingNoteText: string;
 }
 
 let updateTimeout: NodeJS.Timeout;
 
-function NoteTextInput({noteId, startingNoteText}: Props) {
+function NoteTextInput({ noteId, startingNoteText }: Props) {
     const noteIdParam = useSearchParams().get("noteId") || "";
-    const {noteText, setNoteText} = useNote();
+    const { noteText, setNoteText } = useNote();
+    const { notes } = useNotesSWR();
 
     useEffect(() => {
-        // Sempre que noteId mudar, resetar o texto para o inicial (ou vazio)
-        setNoteText(startingNoteText);
-    }, [noteId, startingNoteText, setNoteText]);
+        const currentNote = notes.find((n) => n.id === noteId);
+        setNoteText(currentNote ? currentNote.text : "");
+    }, [noteId, notes, setNoteText]);
 
     const handleUpdateNote = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const text = e.target.value;
 
-        setNoteText(text)
+        setNoteText(text);
 
         clearTimeout(updateTimeout);
         updateTimeout = setTimeout(() => {
             updateNoteAction(noteId, text);
         }, debounceTimeout);
-    }
+    };
 
-  return <Textarea 
-    value={noteText}
-    onChange={handleUpdateNote}
-    placeholder="Escreva suas notas aqui..."
-    className="custom-scrollbar mb-4 h-full max-w-4xl resize-noe border p-4 placeholder:text-muted-foreground focus-visible-ring-0 focus-visible:ring-offset-0"
-  />;
+    return (
+        <Textarea
+            value={noteText}
+            onChange={handleUpdateNote}
+            placeholder="Escreva suas notas aqui..."
+            className="custom-scrollbar mb-4 h-full max-w-4xl resize-noe border p-4 placeholder:text-muted-foreground focus-visible-ring-0 focus-visible:ring-offset-0"
+        />
+    );
 }
 
 export default NoteTextInput;

@@ -1,7 +1,7 @@
 import { getUser } from "@/auth/server";
 import AskAIButton from "@/components/AskAIButton";
 import NewNoteButton from "@/components/NewNoteButton";
-import NoteTextInput from "@/components/NoteTextInput";
+import NoteTextInputClientWrapper from "@/components/NoteTextInputClientWrapper";
 import { prisma } from "@/prisma/prisma";
 import { redirect } from "next/navigation";
 
@@ -45,7 +45,7 @@ async function HomePage({searchParams}: Props) {
         <AskAIButton user={user}/>
         <NewNoteButton user={user} />
       </div>
-      <NoteTextInput noteId={noteId} startingNoteText={note?.text || ""} />
+      <NoteTextInputClientWrapper noteId={noteId} startingNoteText={note?.text || ""} />
     </div>
   );
 }
