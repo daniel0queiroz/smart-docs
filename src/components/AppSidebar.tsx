@@ -40,7 +40,7 @@ if(user) {
                     </p>
                 )}
             </SidebarGroupLabel>
-            {user && <SidebarGroupContent notes={notes} />}
+            {user && <SidebarGroupContent />}
         </SidebarGroup>
       </SidebarContent>
     </Sidebar>
