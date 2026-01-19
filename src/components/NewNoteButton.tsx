@@ -19,18 +19,23 @@ function NewNoteButton({user}: Props) {
     const [loading, setLoading] = useState(false)
 
     const handleClickNewNoteButton = async () => {
-        if(!user) {
-            router.push("/login")
-        } else {
-            setLoading(true)
+      if(!user) {
+        router.push("/login")
+      } else {
+        setLoading(true)
 
-            const uuid = uuidv4()
-            await createNoteAction(uuid)
-            router.push(`/?noteId=${uuid}`)
-
-
-            setLoading(false);
+        // Cria a nota no backend e obtém o id real
+        const uuid = uuidv4();
+        const result = await createNoteAction(uuid);
+        // Se houver erro, não redireciona
+        if (result?.errorMessage) {
+          setLoading(false);
+          // Aqui você pode exibir um toast de erro se quiser
+          return;
         }
+        router.push(`/?noteId=${uuid}`);
+        setLoading(false);
+      }
     }
   return (
   <Button
