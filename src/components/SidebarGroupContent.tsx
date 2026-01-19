@@ -1,6 +1,7 @@
 "use client"
 
 import { SidebarGroupContent as SidebarGroupContentShadCN, SidebarMenu, SidebarMenuItem } from "@/components/ui/sidebar";
+import type { Note } from "@prisma/client";
 import { SearchIcon } from "lucide-react";
 import { Input } from "./ui/input";
 import { useState, useMemo } from "react";
@@ -42,7 +43,7 @@ function SidebarGroupContent() {
         />
       </div>
       <SidebarMenu className="mt-4">
-        {filteredNotes.map((note) => (
+        {filteredNotes.map((note: Note) => (
           <SidebarMenuItem key={note.id} className="group/item">
             <SelectNoteButton note={note} />
             <DeleteNoteButton noteId={note.id} deleteNoteLocally={deleteNoteLocally} />
