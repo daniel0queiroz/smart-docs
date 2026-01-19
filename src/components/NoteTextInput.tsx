@@ -19,10 +19,9 @@ function NoteTextInput({noteId, startingNoteText}: Props) {
     const {noteText, setNoteText} = useNote();
 
     useEffect(() => {
-        if (noteIdParam === noteId) {
-            setNoteText(startingNoteText);
-        }
-    }, [startingNoteText, noteIdParam, noteId, setNoteText])
+        // Sempre que noteId mudar, resetar o texto para o inicial (ou vazio)
+        setNoteText(startingNoteText);
+    }, [noteId, startingNoteText, setNoteText]);
 
     const handleUpdateNote = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const text = e.target.value;
